@@ -10,32 +10,29 @@
  */
 
 module.exports.blueprints = {
-
   /***************************************************************************
-  *                                                                          *
-  * Automatically expose implicit routes for every action in your app?       *
-  *                                                                          *
-  ***************************************************************************/
+   *                                                                          *
+   * Automatically expose implicit routes for every action in your app?       *
+   *                                                                          *
+   ***************************************************************************/
 
   // actions: false,
 
+  /***************************************************************************
+   *                                                                          *
+   * Automatically expose RESTful routes for your models?                     *
+   *                                                                          *
+   ***************************************************************************/
+
+  rest: true,
+  restPrefix: "/api/v1/admin", // 设置rest路由的地址前置
 
   /***************************************************************************
-  *                                                                          *
-  * Automatically expose RESTful routes for your models?                     *
-  *                                                                          *
-  ***************************************************************************/
-
-  // rest: true,
-
-
-  /***************************************************************************
-  *                                                                          *
-  * Automatically expose CRUD "shortcut" routes to GET requests?             *
-  * (These are enabled by default in development only.)                      *
-  *                                                                          *
-  ***************************************************************************/
+   *                                                                          *
+   * Automatically expose CRUD "shortcut" routes to GET requests?             *
+   * (These are enabled by default in development only.)                      *
+   *                                                                          *
+   ***************************************************************************/
 
   // shortcuts: true,
-
 };
