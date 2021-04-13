@@ -21,7 +21,7 @@ module.exports.routes = {
   "/": { view: "pages/homepage" },
   "/api/v1/admin/*": [
     {
-      policy: "isAdminLogined",
+      // policy: "isAdminLogined",
     },
   ],
   /***************************************************************************
