@@ -26,6 +26,11 @@ module.exports = {
     post: {
       model: "Post",
     },
+    isChecked: {
+      type: "number",
+      defaultsTo: 0,
+      columnName: "is_checked",
+    },
     views: {
       type: "number",
       defaultsTo: 1,
