@@ -1,5 +1,5 @@
 /**
- * ArticlesController
+ * ActivitiesController
  *
  * @description :: Server-side actions for handling incoming requests.
  * @help        :: See https://sailsjs.com/docs/concepts/actions
@@ -22,14 +22,13 @@ module.exports = {
     if (req.query.category) {
       query.category = req.query.category; // 模糊匹配
     }
-    const total = await Article.count(query); // 查询数量
+    const total = await Activity.count(query); // 查询数量
     // 查询数据
-    const data = await Article.find(query)
+    const data = await Activity.find(query)
       .skip((page - 1) * per)
       .limit(per)
       .populate("category")
       .sort("id DESC");
-    // const result = await sails.helpers.page(Article, query);
     res.json({
       code: 1,
       total,
@@ -38,7 +37,7 @@ module.exports = {
     });
   },
   async detail(req, res) {
-    const data = await Article.findOne({ id: req.params.id });
+    const data = await Activity.findOne({ id: req.params.id });
     if (data) {
       res.json(data);
     } else {

@@ -26,6 +26,15 @@ module.exports.routes = {
   },
   "GET /api/v1/articles": { action: "api/v1/articles/index" },
   "GET /api/v1/articles/:id": { action: "api/v1/articles/detail" },
+  "GET /api/v1/activity_categories": {
+    action: "api/v1/activityCategories/index",
+  },
+  "GET /api/v1/activity_categories": {
+    action: "api/v1/activityCategories/index",
+  },
+  "GET /api/v1/activities": { action: "api/v1/activities/index" },
+  "GET /api/v1/activities/:id": { action: "api/v1/activities/detail" },
+  "POST /api/v1/activity_logs": { action: "api/v1/activityLogs/reg" },
   "/api/v1/admin/*": [
     {
       // policy: "isAdminLogined",

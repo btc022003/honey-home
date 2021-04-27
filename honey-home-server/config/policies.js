@@ -17,5 +17,5 @@ module.exports.policies = {
    ***************************************************************************/
   // '*': true,
   // 指定action使用police验证
-  // 'products/index': 'isLogined',
+  "api/v1/activityLogs/reg": "isLogined",
 };
