@@ -20,4 +20,5 @@ module.exports.policies = {
   "api/v1/activityLogs/reg": "isLogined",
   "api/v1/posts/create": "isLogined",
   "api/v1/comments/create": "isLogined",
+  "api/v1/productComments/create": "isLogined",
 };

@@ -45,6 +45,18 @@ module.exports.routes = {
   "GET /api/v1/comments/:post_id": { action: "api/v1/comments/index" },
   "POST /api/v1/comments/:post_id": { action: "api/v1/comments/create" },
 
+  "GET /api/v1/product_categories": {
+    action: "api/v1/productCategories/index",
+  },
+  "GET /api/v1/products": { action: "api/v1/products/index" },
+  "GET /api/v1/products/:id": { action: "api/v1/products/detail" },
+  "GET /api/v1/product_comments/:product_id": {
+    action: "api/v1/productComments/index",
+  },
+  "POST /api/v1/product_comments/:product_id": {
+    action: "api/v1/productComments/create",
+  },
+
   "POST /api/v1/auth/login": { action: "api/v1/auth/login" },
   "POST /api/v1/auth/reg": { action: "api/v1/auth/reg" },
   "/api/v1/admin/*": [
