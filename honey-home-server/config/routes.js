@@ -56,6 +56,22 @@ module.exports.routes = {
   "POST /api/v1/product_comments/:product_id": {
     action: "api/v1/productComments/create",
   },
+  "POST /api/v1/shop_carts": {
+    action: "api/v1/shopCarts/create",
+  },
+  "DELETE /api/v1/shop_carts/:cart_id": {
+    action: "api/v1/shopCarts/remove",
+  },
+
+  "GET /api/v1/orders": {
+    action: "api/v1/orders/index",
+  },
+  "GET /api/v1/orders/:id": {
+    action: "api/v1/orders/detail",
+  },
+  "POST /api/v1/orders": {
+    action: "api/v1/orders/create",
+  },
 
   "POST /api/v1/auth/login": { action: "api/v1/auth/login" },
   "POST /api/v1/auth/reg": { action: "api/v1/auth/reg" },

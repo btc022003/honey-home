@@ -21,4 +21,9 @@ module.exports.policies = {
   "api/v1/posts/create": "isLogined",
   "api/v1/comments/create": "isLogined",
   "api/v1/productComments/create": "isLogined",
+  "api/v1/shopCarts/create": "isLogined",
+  "api/v1/shopCarts/remove": "isLogined",
+  "api/v1/orders/index": "isLogined",
+  "api/v1/orders/detail": "isLogined",
+  "api/v1/orders/create": "isLogined",
 };

@@ -24,6 +24,10 @@ module.exports = {
       type: "string",
       defaultsTo: "",
     },
+    receiver: {
+      type: "string",
+      defaultsTo: "",
+    },
     payStatus: {
       type: "number",
       defaultsTo: 0,
@@ -36,6 +40,9 @@ module.exports = {
     },
     user: {
       model: "User",
+    },
+    details: {
+      collection: "OrderDetail",
     },
   },
   tableName: "orders",
