@@ -73,6 +73,16 @@ module.exports.routes = {
     action: "api/v1/orders/create",
   },
 
+  "PUT /api/v1/user/update_pwd": {
+    action: "api/v1/user/updatePWD",
+  },
+  "PUT /api/v1/user/modify": {
+    action: "api/v1/orders/modify",
+  },
+  "POST /api/v1/user/check_in": {
+    action: "api/v1/orders/checkIn",
+  },
+
   "POST /api/v1/auth/login": { action: "api/v1/auth/login" },
   "POST /api/v1/auth/reg": { action: "api/v1/auth/reg" },
   "/api/v1/admin/*": [
