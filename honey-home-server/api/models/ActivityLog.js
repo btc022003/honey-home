@@ -28,5 +28,8 @@ module.exports = {
     activity: {
       model: "Activity",
     },
+    user: {
+      model: "User",
+    },
   },
 };

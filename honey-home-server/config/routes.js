@@ -35,6 +35,8 @@ module.exports.routes = {
   "GET /api/v1/activities": { action: "api/v1/activities/index" },
   "GET /api/v1/activities/:id": { action: "api/v1/activities/detail" },
   "POST /api/v1/activity_logs": { action: "api/v1/activityLogs/reg" },
+  "POST /api/v1/auth/login": { action: "api/v1/auth/login" },
+  "POST /api/v1/auth/reg": { action: "api/v1/auth/reg" },
   "/api/v1/admin/*": [
     {
       // policy: "isAdminLogined",
