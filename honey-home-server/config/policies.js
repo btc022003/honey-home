@@ -18,4 +18,6 @@ module.exports.policies = {
   // '*': true,
   // 指定action使用police验证
   "api/v1/activityLogs/reg": "isLogined",
+  "api/v1/posts/create": "isLogined",
+  "api/v1/comments/create": "isLogined",
 };

@@ -35,6 +35,16 @@ module.exports.routes = {
   "GET /api/v1/activities": { action: "api/v1/activities/index" },
   "GET /api/v1/activities/:id": { action: "api/v1/activities/detail" },
   "POST /api/v1/activity_logs": { action: "api/v1/activityLogs/reg" },
+
+  "GET /api/v1/forums": { action: "api/v1/forums/index" },
+  "GET /api/v1/posts": { action: "api/v1/posts/index" },
+  "GET /api/v1/posts/hot": { action: "api/v1/posts/hot" },
+  "GET /api/v1/posts/fresh": { action: "api/v1/posts/fresh" },
+  "GET /api/v1/posts/:id": { action: "api/v1/posts/detail" },
+  "POST /api/v1/posts": { action: "api/v1/posts/create" },
+  "GET /api/v1/comments/:post_id": { action: "api/v1/comments/index" },
+  "POST /api/v1/comments/:post_id": { action: "api/v1/comments/create" },
+
   "POST /api/v1/auth/login": { action: "api/v1/auth/login" },
   "POST /api/v1/auth/reg": { action: "api/v1/auth/reg" },
   "/api/v1/admin/*": [

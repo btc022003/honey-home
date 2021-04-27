@@ -32,7 +32,7 @@ module.exports = {
   async detail(req, res) {
     const data = await Notice.findOne({ id: req.params.id });
     if (data) {
-      res.json(data);
+      res.json({ code: 1, data });
     } else {
       res.json({
         code: 0,
