@@ -19,6 +19,13 @@ module.exports.routes = {
    ***************************************************************************/
 
   "/": { view: "pages/homepage" },
+  "GET /api/v1/notices": { action: "api/v1/notices/index" },
+  "GET /api/v1/notices/:id": { action: "api/v1/notices/detail" },
+  "GET /api/v1/article_categories": {
+    action: "api/v1/articleCategories/index",
+  },
+  "GET /api/v1/articles": { action: "api/v1/articles/index" },
+  "GET /api/v1/articles/:id": { action: "api/v1/articles/detail" },
   "/api/v1/admin/*": [
     {
       // policy: "isAdminLogined",
