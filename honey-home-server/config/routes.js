@@ -19,6 +19,7 @@ module.exports.routes = {
    ***************************************************************************/
 
   "/": { view: "pages/homepage" },
+  "GET /api/v1/banners": { action: "api/v1/banners/index" },
   "GET /api/v1/notices": { action: "api/v1/notices/index" },
   "GET /api/v1/notices/:id": { action: "api/v1/notices/detail" },
   "GET /api/v1/article_categories": {
@@ -96,6 +97,10 @@ module.exports.routes = {
       // policy: "isAdminLogined",
     },
   ],
+
+  "GET /api/v1/admin/cart/info": { action: "cart/info" },
+  "GET /api/v1/admin/scorelog/info": { action: "scorelog/info" },
+  "PUT /api/v1/admin/post/check": { action: "post/check" },
   /***************************************************************************
    *                                                                          *
    * More custom routes here...                                               *
