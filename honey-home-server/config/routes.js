@@ -56,6 +56,9 @@ module.exports.routes = {
   "POST /api/v1/product_comments/:product_id": {
     action: "api/v1/productComments/create",
   },
+  "GET /api/v1/shop_carts": {
+    action: "api/v1/shopCarts/index",
+  },
   "POST /api/v1/shop_carts": {
     action: "api/v1/shopCarts/create",
   },
@@ -77,10 +80,13 @@ module.exports.routes = {
     action: "api/v1/user/updatePWD",
   },
   "PUT /api/v1/user/modify": {
-    action: "api/v1/orders/modify",
+    action: "api/v1/user/modify",
   },
   "POST /api/v1/user/check_in": {
-    action: "api/v1/orders/checkIn",
+    action: "api/v1/user/checkIn",
+  },
+  "GET /api/v1/user/info": {
+    action: "api/v1/user/info",
   },
 
   "POST /api/v1/auth/login": { action: "api/v1/auth/login" },

@@ -43,6 +43,7 @@ module.exports = {
     },
     details: {
       collection: "OrderDetail",
+      via: "order",
     },
   },
   tableName: "orders",

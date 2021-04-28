@@ -56,7 +56,7 @@ module.exports = {
       });
     }
   },
-  async checkIn() {
+  async checkIn(req, res) {
     await ScoreLog.create({
       user: req.user.id,
       score: 1,
@@ -71,5 +71,8 @@ module.exports = {
       code: 1,
       msg: "签到成功",
     });
+  },
+  async info(req, res) {
+    res.json({ code: 1, data: req.user });
   },
 };

@@ -7,9 +7,9 @@
 
 module.exports = {
   async index(req, res) {
-    const data = ProductComment.find({
+    const data = await ProductComment.find({
       product: req.params.product_id,
-    });
+    }).populate("user");
     res.json({
       code: 1,
       data,

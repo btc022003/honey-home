@@ -30,6 +30,20 @@ module.exports = {
       .populate("user")
       .populate("details")
       .sort("id DESC");
+    const pids = [];
+    data.forEach((item) => {
+      item.details.forEach((od) => pids.push(od.product));
+    });
+    const products = await Product.find({
+      id: {
+        in: pids,
+      },
+    });
+    data.forEach((item) => {
+      item.details.forEach((od) => {
+        od.product = products.find((i) => i.id == od.product);
+      });
+    });
     // const result = await sails.helpers.page(Article, query);
     res.json({
       code: 1,
@@ -39,7 +53,21 @@ module.exports = {
     });
   },
   async detail(req, res) {
-    const data = await Order.findOne({ user: req.user.id, id: req.params.id });
+    const data = await Order.findOne({ user: req.user.id, id: req.params.id })
+      .populate("user")
+      .populate("details");
+    const pids = [];
+    data.details.forEach((item) => pids.push(item.product));
+    const products = await Product.find({
+      id: {
+        in: pids,
+      },
+    });
+
+    data.details.forEach((od) => {
+      od.product = products.find((i) => i.id == od.product);
+    });
+
     if (data) {
       res.json({ code: 1, data });
     } else {
@@ -59,10 +87,11 @@ module.exports = {
       // 获取购物车中的商品信息
       const products = await Product.find({ id: { in: pids } });
       // 计算总价
-      sumPrice = req.body.products.reduce((pre, cur) => {
+      sumPrice = products.reduce((pre, cur) => {
         return (
           pre +
-          products.find((item) => (item.id = cur.product)).price * cur.amount
+          cur.price *
+            req.body.products.find((item) => item.product == cur.id).amount
         );
       }, 0);
       const order = await Order.create({
@@ -72,20 +101,22 @@ module.exports = {
         price: sumPrice,
       }).fetch();
       // 购物车商品信息
-      const ods = req.body.products.map((item) => {
+      const ods = products.map((p) => {
+        const pSubData = req.body.products.find((item) => item.product == p.id);
         return {
-          product: item.product,
-          amount: item.amount,
-          price: products.find((item) => item.id == item.product).price,
+          product: pSubData.product,
+          amount: pSubData.amount,
+          price: p.price,
+          order: order.id,
         };
       });
       // 添加购物车详情
       await OrderDetail.createEach(ods);
       // 删除用户已经提交的购物车中的商品信息
-      await ShopCart.destroy({
+      await Cart.destroy({
         user: req.user.id,
         product: {
-          id: pids,
+          in: pids,
         },
       });
       res.json({
