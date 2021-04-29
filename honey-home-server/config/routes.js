@@ -7,7 +7,8 @@
  * For more information on configuring custom routes, check out:
  * https://sailsjs.com/anatomy/config/routes-js
  */
-
+const path = require("path");
+const fs = require("fs");
 module.exports.routes = {
   /***************************************************************************
    *                                                                          *
@@ -19,6 +20,28 @@ module.exports.routes = {
    ***************************************************************************/
 
   "/": { view: "pages/homepage" },
+  "GET /uploads/:id": {
+    skipAssets: false,
+    fn: [
+      (req, res) => {
+        try {
+          const fileName = path.join(
+            path.resolve("./.tmp/uploads/"),
+            req.params.id
+          );
+
+          if (fs.existsSync(fileName)) {
+            res.sendFile(fileName);
+          } else {
+            res.notFound();
+          }
+        } catch (err) {
+          res.notFound();
+        }
+      },
+    ],
+  },
+  "POST /api/v1/common/upload_file": { action: "api/v1/common/uploadFile" },
   "GET /api/v1/banners": { action: "api/v1/banners/index" },
   "GET /api/v1/notices": { action: "api/v1/notices/index" },
   "GET /api/v1/notices/:id": { action: "api/v1/notices/detail" },
