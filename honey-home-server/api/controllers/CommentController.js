@@ -1,5 +1,5 @@
 /**
- * PostController
+ * CommentController
  *
  * @description :: Server-side actions for handling incoming requests.
  * @help        :: See https://sailsjs.com/docs/concepts/actions
@@ -16,22 +16,22 @@ module.exports = {
     if (req.query.per) {
       per = req.query.per * 1;
     }
-    if (req.query.name) {
-      query.name = { contains: req.query.name }; // 模糊匹配
+    if (req.query.content) {
+      query.content = { contains: req.query.content }; // 模糊匹配
     }
     if (req.query.is_checked) {
       query.isChecked = req.query.is_checked;
     }
-    if (req.query.forum) {
-      query.forum = req.query.forum;
+    if (req.query.post) {
+      query.post = req.query.post;
     }
     //
-    const total = await Post.count(query); // 查询数量
+    const total = await Comment.count(query); // 查询数量
     // 查询数据
-    const data = await Post.find(query)
+    const data = await Comment.find(query)
       .skip((page - 1) * per)
       .limit(per)
-      .populate("forum")
+      .populate("post")
       .populate("user")
       .sort("id DESC");
     // const result = await sails.helpers.page(Article, query);
@@ -42,22 +42,8 @@ module.exports = {
       data,
     });
   },
-  // 帖子审核
-  async check(req, res) {
-    await Post.update({
-      id: {
-        id: req.body.ids,
-      },
-    }).set({
-      isChecked: req.body.isChecked,
-    });
-    res.json({
-      code: 1,
-      msg: "审核成功",
-    });
-  },
   async deleteMany(req, res) {
-    await Post.destroy({
+    await Comment.destroy({
       id: {
         id: req.body.ids,
       },

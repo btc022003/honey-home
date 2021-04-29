@@ -92,15 +92,18 @@ module.exports.routes = {
 
   "POST /api/v1/auth/login": { action: "api/v1/auth/login" },
   "POST /api/v1/auth/reg": { action: "api/v1/auth/reg" },
+  "POST /api/v1/auth/manager_login": { action: "api/v1/auth/managerLogin" },
   "/api/v1/admin/*": [
     {
-      // policy: "isAdminLogined",
+      policy: "isAdminLogined",
     },
   ],
 
   "GET /api/v1/admin/cart/info": { action: "cart/info" },
   "GET /api/v1/admin/scorelog/info": { action: "scorelog/info" },
   "PUT /api/v1/admin/post/check": { action: "post/check" },
+  "POST /api/v1/admin/post/delete_many": { action: "post/deleteMany" },
+  "POST /api/v1/admin/comment/delete_many": { action: "comment/deleteMany" },
   /***************************************************************************
    *                                                                          *
    * More custom routes here...                                               *

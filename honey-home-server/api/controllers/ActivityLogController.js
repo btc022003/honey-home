@@ -1,5 +1,5 @@
 /**
- * ProductController
+ * ActivityLogController
  *
  * @description :: Server-side actions for handling incoming requests.
  * @help        :: See https://sailsjs.com/docs/concepts/actions
@@ -16,16 +16,17 @@ module.exports = {
     if (req.query.per) {
       per = req.query.per * 1;
     }
-    if (req.query.name) {
-      query.name = { contains: req.query.name }; // 模糊匹配
+    if (req.query.activity) {
+      query.activity = req.query.activity;
     }
-    const total = await Product.count(query); // 查询数量
+    //
+    const total = await ActivityLog.count(query); // 查询数量
     // 查询数据
-    const data = await Product.find(query)
+    const data = await ActivityLog.find(query)
       .skip((page - 1) * per)
       .limit(per)
-      .omit(["content"])
-      .populate("category")
+      .populate("activity")
+      .populate("user")
       .sort("id DESC");
     // const result = await sails.helpers.page(Article, query);
     res.json({

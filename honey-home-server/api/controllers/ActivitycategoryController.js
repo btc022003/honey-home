@@ -1,12 +1,12 @@
 /**
- * ProductsController
+ * ActivitycategoryController
  *
  * @description :: Server-side actions for handling incoming requests.
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
 module.exports = {
-  async index(req, res) {
+  async find(req, res) {
     const query = {};
     let page = 1;
     let per = 10;
@@ -19,16 +19,12 @@ module.exports = {
     if (req.query.name) {
       query.name = { contains: req.query.name }; // 模糊匹配
     }
-    if (req.query.category) {
-      query.category = req.query.category; // 模糊匹配
-    }
-    const total = await Product.count(query); // 查询数量
+    //
+    const total = await ActivityCategory.count(query); // 查询数量
     // 查询数据
-    const data = await Product.find(query)
+    const data = await ActivityCategory.find(query)
       .skip((page - 1) * per)
       .limit(per)
-      .populate("category")
-      .omit(["content"])
       .sort("id DESC");
     // const result = await sails.helpers.page(Article, query);
     res.json({
@@ -37,18 +33,5 @@ module.exports = {
       pages: Math.ceil(total / per),
       data,
     });
-  },
-  async detail(req, res) {
-    const data = await Product.findOne({ id: req.params.id }).populate(
-      "category"
-    );
-    if (data) {
-      res.json({ code: 1, data });
-    } else {
-      res.json({
-        code: 0,
-        msg: "暂无数据",
-      });
-    }
   },
 };

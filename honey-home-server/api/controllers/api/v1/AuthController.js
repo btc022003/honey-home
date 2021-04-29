@@ -53,4 +53,28 @@ module.exports = {
       });
     }
   },
+
+  async managerLogin(req, res) {
+    const user = await Manager.findOne({
+      userName: req.body.userName,
+    }).decrypt();
+    if (user) {
+      if (user.password === req.body.password) {
+        res.json({
+          code: 1,
+          data: await sails.helpers.token(user),
+        });
+      } else {
+        res.json({
+          code: 0,
+          data: " 密码错误",
+        });
+      }
+    } else {
+      res.json({
+        code: 0,
+        data: "用户信息不存在",
+      });
+    }
+  },
 };
