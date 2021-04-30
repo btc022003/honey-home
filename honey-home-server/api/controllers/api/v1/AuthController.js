@@ -77,4 +77,8 @@ module.exports = {
       });
     }
   },
+
+  async managerInfo(req, res) {
+    res.json(req.user);
+  },
 };

@@ -31,4 +31,5 @@ module.exports.policies = {
   "api/v1/user/checkIn": "isLogined",
   "api/v1/user/updatePWD": "isLogined",
   "api/v1/user/info": "isLogined",
+  "api/v1/auth/managerInfo": "isAdminLogined",
 };

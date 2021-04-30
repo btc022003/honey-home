@@ -116,6 +116,7 @@ module.exports.routes = {
   "POST /api/v1/auth/login": { action: "api/v1/auth/login" },
   "POST /api/v1/auth/reg": { action: "api/v1/auth/reg" },
   "POST /api/v1/auth/manager_login": { action: "api/v1/auth/managerLogin" },
+  "GET /api/v1/auth/manager_info": { action: "api/v1/auth/managerInfo" },
   "/api/v1/admin/*": [
     {
       policy: "isAdminLogined",
