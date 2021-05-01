@@ -19,6 +19,9 @@ module.exports = {
     if (req.query.name) {
       query.name = { contains: req.query.name }; // 模糊匹配
     }
+    if (req.query.category) {
+      query.category = req.query.category; // 模糊匹配
+    }
     const total = await Product.count(query); // 查询数量
     // 查询数据
     const data = await Product.find(query)

@@ -24,20 +24,30 @@ export const isAntDesignProOrDev = (): boolean => {
  * @param token
  */
 export function setToken(token: string) {
-  sessionStorage.setItem('token', token)
+  sessionStorage.setItem('token', token);
 }
 
 /**
  * 获取token
  * @returns
  */
-export function getToken(): string | null{
-  return sessionStorage.getItem('token')
+export function getToken(): string | null {
+  return sessionStorage.getItem('token');
 }
 
 /**
  * 清除token
  */
 export function removeToken() {
-  sessionStorage.removeItem('token')
+  sessionStorage.removeItem('token');
+}
+
+export function resetImgUrl(url: string) {
+  if (url) {
+    if (url.startsWith('http')) {
+      return url;
+    }
+    return `${BASE_URL}${url}`;
+  }
+  return 'http://oss.penkuoer.com/uPic/ss.jpeg';
 }
