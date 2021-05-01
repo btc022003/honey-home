@@ -55,6 +55,7 @@
     "@umijs/plugin-openapi": "^1.2.0",
     "@umijs/route-utils": "^1.0.36",
     "antd": "^4.14.0",
+    "braft-editor": "^2.3.9",
     "classnames": "^2.2.6",
     "lodash": "^4.17.11",
     "moment": "^2.25.3",

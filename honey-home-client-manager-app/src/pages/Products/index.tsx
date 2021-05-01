@@ -2,12 +2,29 @@ import { Button, Popconfirm, Form, message } from 'antd';
 import { PageContainer } from '@ant-design/pro-layout';
 import { PlusOutlined } from '@ant-design/icons';
 import type { ProColumns, ActionType } from '@ant-design/pro-table';
-import { ModalForm, ProFormText, ProFormTextArea } from '@ant-design/pro-form';
+import ProForm, {
+  ModalForm,
+  ProFormSelect,
+  ProFormText,
+  ProFormTextArea,
+  ProFormDigit,
+} from '@ant-design/pro-form';
 import ProTable from '@ant-design/pro-table';
 import type { ProSchemaValueEnumObj } from '@ant-design/pro-utils';
-import { loadProducts, addProduct, modifyProduct, delProduct } from '@/services/products';
-import { allCategories } from '@/services/productCategories';
 import { useState, useRef, useEffect } from 'react';
+// 引入编辑器组件
+import BraftEditor from 'braft-editor';
+import type { EditorState } from 'braft-editor';
+// 引入编辑器样式
+import 'braft-editor/dist/index.css';
+import {
+  loadProducts,
+  addProduct,
+  modifyProduct,
+  delProduct,
+  productDetail,
+} from '@/services/products';
+import { allCategories } from '@/services/productCategories';
 import UploadImage from '@/components/UploadImage';
 import { resetImgUrl } from '@/utils/utils';
 
@@ -18,21 +35,22 @@ function Index() {
   const actionRef = useRef<ActionType>();
   const [form] = Form.useForm();
   const [categories, setCategories] = useState<ProSchemaValueEnumObj>({});
+  const [editorState, setEditorState] = useState<EditorState>({}); // 富文本编辑器部分
 
   useEffect(() => {
-    allCategories().then((res) => {
+    allCategories().then((res: any) => {
       // setCategories(res.data);
-      const obj: ProSchemaValueEnumObj = {
-        '': {
-          text: '全部',
-        },
+      const obj: ProSchemaValueEnumObj = {};
+      obj[0] = {
+        text: '全部',
       };
-      res.data.forEach((item) => {
+      res.data.forEach((item: IProduct.Product) => {
         // obj[] = item.
-        obj[item.id] = {
+        obj[item.id as number] = {
           text: item.name,
         };
       });
+
       setCategories(obj);
     });
   }, []);
@@ -94,7 +112,7 @@ function Index() {
       title: '主图',
       align: 'center',
       hideInSearch: true,
-      render: (r, d) => <img src={resetImgUrl(d.coverImage)} style={{ width: '80px' }} />,
+      render: (r, d) => <img src={resetImgUrl(d.coverImage as string)} style={{ width: '80px' }} />,
     },
     {
       title: '价格',
@@ -116,11 +134,18 @@ function Index() {
         return (
           <>
             <Button
-              onClick={() => {
+              onClick={async () => {
+                const detail: IProduct.Product = await productDetail(d.id);
                 setModalVisible(true);
-                setCoverImage(d.coverImage);
-                form.setFieldsValue(d);
-                setCurrentId(d.id);
+                setCoverImage(detail.coverImage as string);
+                // detail.category = detail.category?.id;
+                // console.log(detail);
+                const v = { ...detail };
+                delete v.category;
+                // setCategories({...categories})
+                form.setFieldsValue({ ...v, category: `${d.category?.id}` });
+                setEditorState(BraftEditor.createEditorState(detail.content));
+                setCurrentId(detail.id as number);
               }}
               type="primary"
               size="small"
@@ -148,6 +173,12 @@ function Index() {
       },
     },
   ];
+
+  // 富文本编辑器
+  const handleEditorChange = (v: EditorState) => {
+    setEditorState(v);
+  };
+
   return (
     <PageContainer>
       <ProTable
@@ -188,9 +219,9 @@ function Index() {
         form={form}
         visible={createModalVisible}
         onVisibleChange={setModalVisible}
-        onFinish={async (value) => {
-          // console.log(value);
-          const saveData = { ...value };
+        onFinish={async (value: { name: string }) => {
+          console.log(value);
+          const saveData: IProduct.Product = { ...value, content: editorState.toHTML() };
           if (coverImage) {
             saveData.coverImage = coverImage;
           }
@@ -229,8 +260,65 @@ function Index() {
           width="md"
           name="name"
         />
-        <ProFormTextArea label="简介" placeholder="请输入商品简介" width="md" name="desc" />
         <UploadImage coverImage={coverImage} setCoverImage={setCoverImage} />
+        <ProFormTextArea label="简介" placeholder="请输入商品简介" width="md" name="desc" />
+        <ProFormSelect
+          name="category"
+          label="分类"
+          valueEnum={categories}
+          rules={[{ required: true, message: '请选择商品分类' }]}
+        ></ProFormSelect>
+        <ProFormText
+          label="价格"
+          fieldProps={{
+            prefix: '¥',
+            suffix: '元',
+            type: 'number',
+          }}
+          tooltip="请输入价格，不能小于0"
+          rules={[
+            {
+              min: 0,
+              message: '价格不能小于0',
+              type: 'number',
+              // 验证的时候数字进行转换
+              transform(value) {
+                return Number(value);
+              },
+            },
+            // { max: 99999, message: '价格不能大于99999', type: 'number' },
+          ]}
+          placeholder="请输入价格"
+          width="md"
+          name="price"
+        />
+        <ProFormDigit
+          label="库存"
+          placeholder="请输入库存"
+          width="md"
+          fieldProps={{
+            type: 'number',
+          }}
+          rules={[
+            {
+              min: 0,
+              message: '库存不能小于0',
+              type: 'number',
+              // 验证的时候数字进行转换
+              transform(value) {
+                return Number(value);
+              },
+            },
+          ]}
+          name="amount"
+        />
+        <ProForm.Item label="详情">
+          <BraftEditor
+            style={{ border: '1px solid', borderColor: 'rgba(0, 0, 0, 0.5)' }}
+            value={editorState}
+            onChange={(e) => handleEditorChange(e)}
+          />
+        </ProForm.Item>
       </ModalForm>
     </PageContainer>
   );

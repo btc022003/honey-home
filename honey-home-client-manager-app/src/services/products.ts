@@ -10,7 +10,7 @@ export const loadProducts = async (
   // sort: any,
   // filter: any,
 ) => {
-  console.log(params);
+  // console.log(params);
   // 这里需要返回一个 Promise,在返回之前你可以进行数据转化
   // 如果需要转化参数可以在这里进行修改
   // const msg = await myQuery({
@@ -22,7 +22,7 @@ export const loadProducts = async (
     params: {
       page: params.current,
       name: params.name,
-      category: params.category,
+      category: params.category > 0 ? params.category : '',
     },
   });
   // console.log(msg)
@@ -35,6 +35,17 @@ export const loadProducts = async (
       // 不传会使用 data 的长度，如果是分页一定要传
       total: msg.total,
     });
+  });
+};
+
+/**
+ * 获取详情
+ * @param id
+ * @returns
+ */
+export const productDetail = (id: number | undefined) => {
+  return request<IProduct.Product>(`/api/v1/admin/product/${id}`, {
+    method: 'GET',
   });
 };
 
@@ -68,7 +79,7 @@ export const modifyProduct = (id: number, data: IProduct.Product) => {
  * @param id
  * @returns
  */
-export const delProduct = (id) => {
+export const delProduct = (id: number) => {
   return request(`/api/v1/admin/product/${id}`, {
     method: 'DELETE',
   });

@@ -43,10 +43,22 @@
     component: './TableList',
   },
   {
-    name: 'product-list',
-    icon: 'table',
+    name: 'products',
+    icon: 'ShoppingOutlined',
     path: '/products',
-    component: './Products',
+
+    routes: [
+      {
+        path: '/products/list',
+        name: 'index',
+        component: './Products',
+      },
+      {
+        path: '/products/categories',
+        name: 'categories',
+        component: './ProductCategories',
+      },
+    ],
   },
   {
     path: '/',
