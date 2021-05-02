@@ -73,7 +73,7 @@ function Index() {
       // hideInSearch: true,
       dataIndex: 'category',
       render(r, d) {
-        return <p>{d.category?.name}</p>;
+        return <p>{(d.category as IProduct.Category)?.name}</p>;
       },
       filters: true,
       onFilter: true,
@@ -143,7 +143,7 @@ function Index() {
                 const v = { ...detail };
                 delete v.category;
                 // setCategories({...categories})
-                form.setFieldsValue({ ...v, category: `${d.category?.id}` });
+                form.setFieldsValue({ ...v, category: `${(d.category as IProduct.Category).id}` });
                 setEditorState(BraftEditor.createEditorState(detail.content));
                 setCurrentId(detail.id as number);
               }}
@@ -199,10 +199,11 @@ function Index() {
               setModalVisible(true);
               setCurrentId(0);
               setCoverImage('');
-              form.setFieldsValue({
-                name: '',
-                desc: '',
-              });
+              form.resetFields();
+              // form.setFieldsValue({
+              //   name: '',
+              //   desc: '',
+              // });
             }}
           >
             <PlusOutlined />
@@ -213,14 +214,14 @@ function Index() {
       <ModalForm
         title="商品编辑"
         width="800px"
-        initialValues={{
-          name: 'Tom',
-        }}
+        // initialValues={{
+        //   name: 'Tom',
+        // }}
         form={form}
         visible={createModalVisible}
         onVisibleChange={setModalVisible}
         onFinish={async (value: { name: string }) => {
-          console.log(value);
+          // console.log(value);
           const saveData: IProduct.Product = { ...value, content: editorState.toHTML() };
           if (coverImage) {
             saveData.coverImage = coverImage;

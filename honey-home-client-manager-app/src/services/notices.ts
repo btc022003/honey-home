@@ -1,17 +1,9 @@
 import { request } from 'umi';
 
-/**
- * 加载100条分类数据时
- * @returns
- */
-export function allCategories() {
-  return request<IProductCategory.ProductCategoryData>('/api/v1/admin/productcategory?per=100');
-}
-
 export const loadModels = async (
   // 第一个参数 params 查询表单和 params 参数的结合
   // 第一个参数中一定会有 pageSize 和  current ，这两个参数是 antd 的规范
-  params: IProductCategory.ProductCategory & {
+  params: INotice.Notice & {
     pageSize: number;
     current: number;
   },
@@ -25,7 +17,7 @@ export const loadModels = async (
   //   page: params.current,
   //   pageSize: params.pageSize,
   // });
-  const msg = await request<IProductCategory.ProductCategoryData>('/api/v1/admin/productcategory', {
+  const msg = await request<INotice.NoticeData>('/api/v1/admin/notice', {
     method: 'get',
     params: {
       page: params.current,
@@ -51,7 +43,7 @@ export const loadModels = async (
  * @returns
  */
 export const modelDetail = (id: number | undefined) => {
-  return request<IProductCategory.ProductCategory>(`/api/v1/admin/productcategory/${id}`, {
+  return request<INotice.Notice>(`/api/v1/admin/notice/${id}`, {
     method: 'GET',
   });
 };
@@ -61,8 +53,8 @@ export const modelDetail = (id: number | undefined) => {
  * @param data
  * @returns
  */
-export const addModel = (data: IProductCategory.ProductCategory) => {
-  return request('/api/v1/admin/productcategory', {
+export const addModel = (data: INotice.Notice) => {
+  return request('/api/v1/admin/notice', {
     method: 'POST',
     data,
   });
@@ -74,8 +66,8 @@ export const addModel = (data: IProductCategory.ProductCategory) => {
  * @param data
  * @returns
  */
-export const modifyModel = (id: number, data: IProductCategory.ProductCategory) => {
-  return request(`/api/v1/admin/productcategory/${id}`, {
+export const modifyModel = (id: number, data: INotice.Notice) => {
+  return request(`/api/v1/admin/notice/${id}`, {
     method: 'PUT',
     data,
   });
@@ -87,7 +79,7 @@ export const modifyModel = (id: number, data: IProductCategory.ProductCategory) 
  * @returns
  */
 export const delModel = (id: number | undefined) => {
-  return request(`/api/v1/admin/productcategory/${id}`, {
+  return request(`/api/v1/admin/notice/${id}`, {
     method: 'DELETE',
   });
 };

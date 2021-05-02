@@ -52,4 +52,5 @@ export default {
   'menu.products': '商品管理',
   'menu.products.categories': '商品分类',
   'menu.products.index': '商品列表',
+  'menu.notices': '公告管理',
 };

@@ -27,7 +27,7 @@ module.exports = {
     // TODO
     let page = 1;
     let per = 10;
-    const totals = await model.count(query);
+    const total = await model.count(query);
     // console.log(totals);
     const data = await model
       .find(query)
@@ -36,7 +36,7 @@ module.exports = {
       .populate("category") // 查询关联数据
       .sort("id DESC");
     return {
-      totals,
+      total,
       data,
     };
   },

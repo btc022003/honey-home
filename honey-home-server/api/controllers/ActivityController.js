@@ -26,6 +26,7 @@ module.exports = {
     const total = await Activity.count(query); // 查询数量
     // 查询数据
     const data = await Activity.find(query)
+      .omit(["content"])
       .skip((page - 1) * per)
       .limit(per)
       .populate("category")

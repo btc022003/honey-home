@@ -3,7 +3,7 @@ import { request } from 'umi';
 export const loadProducts = async (
   // 第一个参数 params 查询表单和 params 参数的结合
   // 第一个参数中一定会有 pageSize 和  current ，这两个参数是 antd 的规范
-  params: T & {
+  params: IProduct.Product & {
     pageSize: number;
     current: number;
   },
@@ -22,7 +22,7 @@ export const loadProducts = async (
     params: {
       page: params.current,
       name: params.name,
-      category: params.category > 0 ? params.category : '',
+      category: (params.category as number) > 0 ? params.category : '',
     },
   });
   // console.log(msg)
@@ -79,7 +79,7 @@ export const modifyProduct = (id: number, data: IProduct.Product) => {
  * @param id
  * @returns
  */
-export const delProduct = (id: number) => {
+export const delProduct = (id: number | undefined) => {
   return request(`/api/v1/admin/product/${id}`, {
     method: 'DELETE',
   });

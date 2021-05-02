@@ -43,6 +43,12 @@
     component: './TableList',
   },
   {
+    name: 'notices',
+    icon: 'BellOutlined',
+    path: '/notices/list',
+    component: './Notices',
+  },
+  {
     name: 'products',
     icon: 'ShoppingOutlined',
     path: '/products',

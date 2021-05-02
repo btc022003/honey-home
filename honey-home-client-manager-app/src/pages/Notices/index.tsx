@@ -2,16 +2,13 @@ import { Button, Popconfirm, Form, message } from 'antd';
 import { PageContainer } from '@ant-design/pro-layout';
 import { PlusOutlined } from '@ant-design/icons';
 import type { ProColumns, ActionType } from '@ant-design/pro-table';
-import { ModalForm, ProFormText, ProFormTextArea } from '@ant-design/pro-form';
+import ProForm, { ModalForm, ProFormText, ProFormTextArea } from '@ant-design/pro-form';
 import ProTable from '@ant-design/pro-table';
 import { useState, useRef } from 'react';
-import {
-  loadModels,
-  addModel,
-  modifyModel,
-  delModel,
-  modelDetail,
-} from '@/services/productCategories';
+import BraftEditor from 'braft-editor';
+import type { EditorState } from 'braft-editor';
+import RichTextEditor from '@/components/RichTextEditor';
+import { loadModels, addModel, modifyModel, delModel, modelDetail } from '@/services/notices';
 import UploadImage from '@/components/UploadImage';
 import { resetImgUrl } from '@/utils/utils';
 
@@ -21,8 +18,9 @@ function Index() {
   const [currentId, setCurrentId] = useState<number>(0);
   const actionRef = useRef<ActionType>();
   const [form] = Form.useForm();
+  const [editorState, setEditorState] = useState<EditorState>({}); // 富文本编辑器部分
 
-  const columns: ProColumns<IProductCategory.ProductCategory>[] = [
+  const columns: ProColumns<INotice.Notice>[] = [
     {
       title: '序号',
       align: 'center',
@@ -56,8 +54,9 @@ function Index() {
           <>
             <Button
               onClick={async () => {
-                const detail: IProductCategory.ProductCategory = await modelDetail(d.id);
+                const detail: INotice.Notice = await modelDetail(d.id);
                 setModalVisible(true);
+                setEditorState(BraftEditor.createEditorState(detail.content));
                 setCoverImage(detail.coverImage as string);
                 // const v = { ...detail };
                 setCurrentId(detail.id as number);
@@ -93,7 +92,7 @@ function Index() {
   return (
     <PageContainer>
       <ProTable
-        headerTitle="商品分类"
+        headerTitle="公告"
         actionRef={actionRef}
         rowKey="id"
         columns={columns}
@@ -108,6 +107,7 @@ function Index() {
             key="primary"
             onClick={() => {
               setModalVisible(true);
+              setEditorState(BraftEditor.createEditorState(''));
               setCurrentId(0);
               setCoverImage('');
               form.setFieldsValue({
@@ -132,7 +132,7 @@ function Index() {
         onVisibleChange={setModalVisible}
         onFinish={async (value: { name: string }) => {
           // console.log(value);
-          const saveData: IProductCategory.ProductCategory = { ...value };
+          const saveData: INotice.Notice = { ...value, content: editorState.toHTML() };
           if (coverImage) {
             saveData.coverImage = coverImage;
           }
@@ -153,19 +153,22 @@ function Index() {
         }}
       >
         <ProFormText
-          label="名字"
+          label="标题"
           rules={[
             {
               required: true,
-              message: '商品分类名字必填',
+              message: '公告标题必填',
             },
           ]}
-          placeholder="请输入分类名字"
+          placeholder="请输入公告标题"
           width="md"
           name="name"
         />
-        <ProFormTextArea label="简介" placeholder="请输入商品简介" width="md" name="desc" />
+        <ProFormTextArea label="简介" placeholder="请输入公告简介" width="md" name="desc" />
         <UploadImage coverImage={coverImage} setCoverImage={setCoverImage} />
+        <ProForm.Item label="详情">
+          <RichTextEditor editorState={editorState} setEditorState={setEditorState} />
+        </ProForm.Item>
       </ModalForm>
     </PageContainer>
   );

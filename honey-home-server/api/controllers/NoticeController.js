@@ -1,5 +1,5 @@
 /**
- * BannercategoryController
+ * NoticeController
  *
  * @description :: Server-side actions for handling incoming requests.
  * @help        :: See https://sailsjs.com/docs/concepts/actions
@@ -19,9 +19,10 @@ module.exports = {
     if (req.query.name) {
       query.name = { contains: req.query.name }; // 模糊匹配
     }
-    const total = await BannerCategory.count(query); // 查询数量
+    const total = await Notice.count(query); // 查询数量
     // 查询数据
-    const data = await BannerCategory.find(query)
+    const data = await Notice.find(query)
+      .omit(["content"])
       .skip((page - 1) * per)
       .limit(per)
       .sort("id DESC");

@@ -21,7 +21,7 @@ declare module IProduct {
     content?: string;
     onSale?: number;
     amount?: number | undefined;
-    category?: Category | undefined;
+    category?: Category | unknown;
   }
 
   export interface ProductData {

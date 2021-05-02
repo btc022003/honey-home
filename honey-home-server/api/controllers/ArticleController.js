@@ -22,7 +22,7 @@ module.exports = {
     if (req.query.category) {
       query.category = req.query.category;
     }
-    const totals = await Article.count(query); // 查询数量
+    const total = await Article.count(query); // 查询数量
     // 查询数据
     const data = await Article.find(query)
       .skip((page - 1) * per)
@@ -31,9 +31,9 @@ module.exports = {
       .sort("id DESC");
     // const result = await sails.helpers.page(Article, query);
     res.json({
-      totals,
+      total,
       page,
-      pages: Math.ceil(totals / per),
+      pages: Math.ceil(total / per),
       data,
     });
   },
