@@ -66,6 +66,18 @@
     ],
   },
   {
+    name: 'users',
+    icon: 'UserOutlined',
+    path: '/users',
+    routes: [
+      {
+        path: '/users/list',
+        name: 'list',
+        component: './Users',
+      },
+    ],
+  },
+  {
     name: 'products',
     icon: 'ShoppingOutlined',
     path: '/products',

@@ -56,4 +56,6 @@ export default {
   'menu.banners': '轮播图管理',
   'menu.banners.categories': '轮播图分类',
   'menu.banners.index': '轮播图列表',
+  'menu.users': '用户管理',
+  'menu.users.list': '用户列表',
 };
