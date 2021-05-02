@@ -53,4 +53,7 @@ export default {
   'menu.products.categories': '商品分类',
   'menu.products.index': '商品列表',
   'menu.notices': '公告管理',
+  'menu.banners': '轮播图管理',
+  'menu.banners.categories': '轮播图分类',
+  'menu.banners.index': '轮播图列表',
 };

@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect } from 'react';
+import type { ReactElement } from 'react';
 // 引入编辑器组件
 import BraftEditor from 'braft-editor';
 import type { EditorState } from 'braft-editor';

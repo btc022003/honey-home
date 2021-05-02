@@ -49,6 +49,23 @@
     component: './Notices',
   },
   {
+    name: 'banners',
+    icon: 'InsertRowBelowOutlined',
+    path: '/banners',
+    routes: [
+      {
+        path: '/banners/categories',
+        name: 'categories',
+        component: './Banners/BannerCategories',
+      },
+      {
+        path: '/banners/index',
+        name: 'index',
+        component: './Banners',
+      },
+    ],
+  },
+  {
     name: 'products',
     icon: 'ShoppingOutlined',
     path: '/products',

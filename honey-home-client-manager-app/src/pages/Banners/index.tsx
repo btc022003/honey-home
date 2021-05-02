@@ -2,13 +2,12 @@ import { Button, Popconfirm, Form, message } from 'antd';
 import { PageContainer } from '@ant-design/pro-layout';
 import { PlusOutlined } from '@ant-design/icons';
 import type { ProColumns, ActionType } from '@ant-design/pro-table';
-import ProForm, { ModalForm, ProFormText, ProFormTextArea } from '@ant-design/pro-form';
+import { ModalForm, ProFormText, ProFormTextArea, ProFormSelect } from '@ant-design/pro-form';
+import type { ProSchemaValueEnumObj } from '@ant-design/pro-utils';
 import ProTable from '@ant-design/pro-table';
-import { useState, useRef } from 'react';
-import BraftEditor from 'braft-editor';
-import type { EditorState } from 'braft-editor';
-import RichTextEditor from '@/components/RichTextEditor';
-import { loadModels, addModel, modifyModel, delModel, modelDetail } from '@/services/notices';
+import { useState, useRef, useEffect } from 'react';
+import { loadModels, addModel, modifyModel, delModel, modelDetail } from '@/services/banners';
+import { allCategories } from '@/services/bannerCategories';
 import UploadImage from '@/components/UploadImage';
 import { resetImgUrl } from '@/utils/utils';
 
@@ -18,9 +17,26 @@ function Index() {
   const [currentId, setCurrentId] = useState<number>(0);
   const actionRef = useRef<ActionType>();
   const [form] = Form.useForm();
-  const [editorState, setEditorState] = useState<EditorState>({}); // 富文本编辑器部分
+  const [categories, setCategories] = useState<ProSchemaValueEnumObj>({});
+  useEffect(() => {
+    allCategories().then((res: any) => {
+      // setCategories(res.data);
+      const obj: ProSchemaValueEnumObj = {};
+      obj[0] = {
+        text: '全部',
+      };
+      res.data.forEach((item: IBannerCategory.BannerCategory) => {
+        // obj[] = item.
+        obj[item.id as number] = {
+          text: item.name,
+        };
+      });
 
-  const columns: ProColumns<INotice.Notice>[] = [
+      setCategories(obj);
+    });
+  }, []);
+
+  const columns: ProColumns<IBanner.Banner>[] = [
     {
       title: '序号',
       align: 'center',
@@ -40,9 +56,29 @@ function Index() {
       render: (r, d) => <img src={resetImgUrl(d.coverImage as string)} style={{ width: '80px' }} />,
     },
     {
-      title: '简介',
+      title: '分类',
+      align: 'center',
+      // hideInSearch: true,
+      dataIndex: 'category',
+      render(r, d) {
+        return <p>{(d.category as IBanner.Category)?.name}</p>;
+      },
+      filters: true,
+      onFilter: true,
+      valueType: 'select',
+      // 枚举每一个选项
+      valueEnum: categories,
+    },
+    {
+      title: '描述',
       align: 'center',
       dataIndex: 'desc',
+      hideInSearch: true,
+    },
+    {
+      title: '链接',
+      align: 'center',
+      dataIndex: 'link',
       hideInSearch: true,
     },
     {
@@ -54,13 +90,15 @@ function Index() {
           <>
             <Button
               onClick={async () => {
-                const detail: INotice.Notice = await modelDetail(d.id);
+                const detail: IBanner.Banner = await modelDetail(d.id);
                 setModalVisible(true);
-                setEditorState(BraftEditor.createEditorState(detail.content));
                 setCoverImage(detail.coverImage as string);
                 // const v = { ...detail };
                 setCurrentId(detail.id as number);
-                form.setFieldsValue(detail);
+                const v = { ...detail };
+                delete v.category;
+                // setCategories({...categories})
+                form.setFieldsValue({ ...v, category: `${(d.category as IBanner.Category).id}` });
               }}
               type="primary"
               size="small"
@@ -92,7 +130,7 @@ function Index() {
   return (
     <PageContainer>
       <ProTable
-        headerTitle="公告"
+        headerTitle="轮播图"
         actionRef={actionRef}
         rowKey="id"
         columns={columns}
@@ -107,7 +145,6 @@ function Index() {
             key="primary"
             onClick={() => {
               setModalVisible(true);
-              setEditorState(BraftEditor.createEditorState(''));
               setCurrentId(0);
               setCoverImage('');
               form.setFieldsValue({
@@ -122,7 +159,7 @@ function Index() {
         ]}
       ></ProTable>
       <ModalForm
-        title="公告编辑"
+        title="轮播图编辑"
         width="800px"
         initialValues={{
           name: 'Tom',
@@ -132,7 +169,7 @@ function Index() {
         onVisibleChange={setModalVisible}
         onFinish={async (value: { name: string }) => {
           // console.log(value);
-          const saveData: INotice.Notice = { ...value, content: editorState.toHTML() };
+          const saveData: IBanner.Banner = { ...value };
           if (coverImage) {
             saveData.coverImage = coverImage;
           }
@@ -153,22 +190,26 @@ function Index() {
         }}
       >
         <ProFormText
-          label="标题"
+          label="名字"
           rules={[
             {
               required: true,
-              message: '公告标题必填',
+              message: '分类名字必填',
             },
           ]}
-          placeholder="请输入公告标题"
+          placeholder="请输入分类名字"
           width="md"
           name="name"
         />
-        <ProFormTextArea label="简介" placeholder="请输入公告简介" width="md" name="desc" />
+        <ProFormSelect
+          name="category"
+          label="分类"
+          valueEnum={categories}
+          rules={[{ required: true, message: '请选择商品分类' }]}
+        ></ProFormSelect>
+        <ProFormTextArea label="简介" placeholder="请输入简介" width="md" name="desc" />
         <UploadImage coverImage={coverImage} setCoverImage={setCoverImage} />
-        <ProForm.Item label="详情">
-          <RichTextEditor editorState={editorState} setEditorState={setEditorState} />
-        </ProForm.Item>
+        <ProFormTextArea label="链接" placeholder="请输入跳转链接" width="md" name="link" />
       </ModalForm>
     </PageContainer>
   );

@@ -2,13 +2,16 @@ import { Button, Popconfirm, Form, message } from 'antd';
 import { PageContainer } from '@ant-design/pro-layout';
 import { PlusOutlined } from '@ant-design/icons';
 import type { ProColumns, ActionType } from '@ant-design/pro-table';
-import ProForm, { ModalForm, ProFormText, ProFormTextArea } from '@ant-design/pro-form';
+import { ModalForm, ProFormText, ProFormTextArea } from '@ant-design/pro-form';
 import ProTable from '@ant-design/pro-table';
 import { useState, useRef } from 'react';
-import BraftEditor from 'braft-editor';
-import type { EditorState } from 'braft-editor';
-import RichTextEditor from '@/components/RichTextEditor';
-import { loadModels, addModel, modifyModel, delModel, modelDetail } from '@/services/notices';
+import {
+  loadModels,
+  addModel,
+  modifyModel,
+  delModel,
+  modelDetail,
+} from '@/services/bannerCategories';
 import UploadImage from '@/components/UploadImage';
 import { resetImgUrl } from '@/utils/utils';
 
@@ -18,9 +21,8 @@ function Index() {
   const [currentId, setCurrentId] = useState<number>(0);
   const actionRef = useRef<ActionType>();
   const [form] = Form.useForm();
-  const [editorState, setEditorState] = useState<EditorState>({}); // 富文本编辑器部分
 
-  const columns: ProColumns<INotice.Notice>[] = [
+  const columns: ProColumns<IBannerCategory.BannerCategory>[] = [
     {
       title: '序号',
       align: 'center',
@@ -40,7 +42,7 @@ function Index() {
       render: (r, d) => <img src={resetImgUrl(d.coverImage as string)} style={{ width: '80px' }} />,
     },
     {
-      title: '简介',
+      title: '描述',
       align: 'center',
       dataIndex: 'desc',
       hideInSearch: true,
@@ -54,9 +56,8 @@ function Index() {
           <>
             <Button
               onClick={async () => {
-                const detail: INotice.Notice = await modelDetail(d.id);
+                const detail: IBannerCategory.BannerCategory = await modelDetail(d.id);
                 setModalVisible(true);
-                setEditorState(BraftEditor.createEditorState(detail.content));
                 setCoverImage(detail.coverImage as string);
                 // const v = { ...detail };
                 setCurrentId(detail.id as number);
@@ -92,7 +93,7 @@ function Index() {
   return (
     <PageContainer>
       <ProTable
-        headerTitle="公告"
+        headerTitle="轮播图分类"
         actionRef={actionRef}
         rowKey="id"
         columns={columns}
@@ -107,7 +108,6 @@ function Index() {
             key="primary"
             onClick={() => {
               setModalVisible(true);
-              setEditorState(BraftEditor.createEditorState(''));
               setCurrentId(0);
               setCoverImage('');
               form.setFieldsValue({
@@ -122,7 +122,7 @@ function Index() {
         ]}
       ></ProTable>
       <ModalForm
-        title="公告编辑"
+        title="轮播图分类编辑"
         width="800px"
         initialValues={{
           name: 'Tom',
@@ -132,7 +132,7 @@ function Index() {
         onVisibleChange={setModalVisible}
         onFinish={async (value: { name: string }) => {
           // console.log(value);
-          const saveData: INotice.Notice = { ...value, content: editorState.toHTML() };
+          const saveData: IBannerCategory.BannerCategory = { ...value };
           if (coverImage) {
             saveData.coverImage = coverImage;
           }
@@ -153,22 +153,19 @@ function Index() {
         }}
       >
         <ProFormText
-          label="标题"
+          label="名字"
           rules={[
             {
               required: true,
-              message: '公告标题必填',
+              message: '分类名字必填',
             },
           ]}
-          placeholder="请输入公告标题"
+          placeholder="请输入分类名字"
           width="md"
           name="name"
         />
-        <ProFormTextArea label="简介" placeholder="请输入公告简介" width="md" name="desc" />
+        <ProFormTextArea label="简介" placeholder="请输入简介" width="md" name="desc" />
         <UploadImage coverImage={coverImage} setCoverImage={setCoverImage} />
-        <ProForm.Item label="详情">
-          <RichTextEditor editorState={editorState} setEditorState={setEditorState} />
-        </ProForm.Item>
       </ModalForm>
     </PageContainer>
   );
