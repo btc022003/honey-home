@@ -13,7 +13,7 @@ import ProTable from '@ant-design/pro-table';
 import { useState, useRef } from 'react';
 import { loadModels, modifyModel, delModel } from '@/services/users';
 import { loadUserScoreLogs } from '@/services/scoreLogs';
-import { loadCartsDataByUser, deleteUserCartData } from '@/services/carts';
+import { loadCartsDataByUser } from '@/services/carts';
 import { resetImgUrl, formatTime } from '@/utils/utils';
 
 function Index() {

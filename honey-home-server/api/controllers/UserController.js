@@ -16,8 +16,11 @@ module.exports = {
     if (req.query.per) {
       per = req.query.per * 1;
     }
-    if (req.query.name) {
-      query.name = { contains: req.query.name }; // 模糊匹配
+    if (req.query.userName) {
+      query.userName = { contains: req.query.userName }; // 模糊匹配
+    }
+    if (req.query.nickName) {
+      query.nickName = { contains: req.query.nickName }; // 模糊匹配
     }
     const total = await User.count(query); // 查询数量
     // 查询数据

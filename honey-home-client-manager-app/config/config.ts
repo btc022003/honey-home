@@ -65,4 +65,8 @@ export default defineConfig({
       projectName: 'swagger',
     },
   ],
+  publicPath: './',
+  history: {
+    type: 'hash',
+  },
 });

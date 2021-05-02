@@ -1,14 +1,11 @@
-import {
-  LockOutlined,
-  UserOutlined,
-} from '@ant-design/icons';
-import {  message } from 'antd';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { message } from 'antd';
 import React, { useState } from 'react';
-import ProForm, {  ProFormCheckbox, ProFormText } from '@ant-design/pro-form';
+import ProForm, { ProFormCheckbox, ProFormText } from '@ant-design/pro-form';
 import { useIntl, Link, history, FormattedMessage, SelectLang, useModel } from 'umi';
 import Footer from '@/components/Footer';
 import { login } from '@/services/auth';
-import { setToken} from '@/utils/utils'
+import { setToken } from '@/utils/utils';
 
 import styles from './index.less';
 
@@ -43,7 +40,7 @@ const Login: React.FC = () => {
     try {
       // 登录
       const msg = await login({ ...values });
-      setToken(msg.data)
+      setToken(msg.data);
       // console.log(msg)
 
       if (msg.code === 1) {
@@ -55,9 +52,9 @@ const Login: React.FC = () => {
         await fetchUserInfo();
         goto();
         return;
-      } else {
-        message.error(msg.msg)
       }
+      message.error(msg.msg);
+
       // 如果失败去设置用户错误信息
       // setUserLoginState(msg);
     } catch (error) {
@@ -79,13 +76,11 @@ const Login: React.FC = () => {
         <div className={styles.top}>
           <div className={styles.header}>
             <Link to="/">
-              <img alt="logo" className={styles.logo} src="/hh-log.png" />
+              <img alt="logo" className={styles.logo} src="./hh-log.png" />
               <span className={styles.title}>HoneyHome</span>
             </Link>
           </div>
-          <div className={styles.desc}>
-            致力于打造精品的社区服务平台
-          </div>
+          <div className={styles.desc}>致力于打造精品的社区服务平台</div>
         </div>
 
         <div className={styles.main}>
@@ -113,46 +108,46 @@ const Login: React.FC = () => {
               handleSubmit(values as API.LoginParams);
             }}
           >
-              <>
-                <ProFormText
-                  name="userName"
-                  fieldProps={{
-                    size: 'large',
-                    prefix: <UserOutlined className={styles.prefixIcon} />,
-                  }}
-                  placeholder='请输入用户名'
-                  rules={[
-                    {
-                      required: true,
-                      message: (
-                        <FormattedMessage
-                          id="pages.login.username.required"
-                          defaultMessage="请输入用户名!"
-                        />
-                      ),
-                    },
-                  ]}
-                />
-                <ProFormText.Password
-                  name="password"
-                  fieldProps={{
-                    size: 'large',
-                    prefix: <LockOutlined className={styles.prefixIcon} />,
-                  }}
-                  placeholder='请输入密码'
-                  rules={[
-                    {
-                      required: true,
-                      message: (
-                        <FormattedMessage
-                          id="pages.login.password.required"
-                          defaultMessage="请输入密码！"
-                        />
-                      ),
-                    },
-                  ]}
-                />
-              </>
+            <>
+              <ProFormText
+                name="userName"
+                fieldProps={{
+                  size: 'large',
+                  prefix: <UserOutlined className={styles.prefixIcon} />,
+                }}
+                placeholder="请输入用户名"
+                rules={[
+                  {
+                    required: true,
+                    message: (
+                      <FormattedMessage
+                        id="pages.login.username.required"
+                        defaultMessage="请输入用户名!"
+                      />
+                    ),
+                  },
+                ]}
+              />
+              <ProFormText.Password
+                name="password"
+                fieldProps={{
+                  size: 'large',
+                  prefix: <LockOutlined className={styles.prefixIcon} />,
+                }}
+                placeholder="请输入密码"
+                rules={[
+                  {
+                    required: true,
+                    message: (
+                      <FormattedMessage
+                        id="pages.login.password.required"
+                        defaultMessage="请输入密码！"
+                      />
+                    ),
+                  },
+                ]}
+              />
+            </>
             <div
               style={{
                 marginBottom: 24,

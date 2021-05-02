@@ -7,9 +7,9 @@ import RightContent from '@/components/RightContent';
 import Footer from '@/components/Footer';
 import type { RequestOptionsInit, ResponseError } from 'umi-request';
 // import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
-import { currentUser as  queryCurrentUser} from '@/services/auth'
+import { currentUser as queryCurrentUser } from '@/services/auth';
 import { BookOutlined, LinkOutlined } from '@ant-design/icons';
-import { getToken } from '@/utils/utils'
+import { getToken } from '@/utils/utils';
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
@@ -52,7 +52,7 @@ export async function getInitialState(): Promise<{
 }
 
 const authHeaderInterceptor = (url: string, options: RequestOptionsInit) => {
-  const authHeader = { token:  getToken()};
+  const authHeader = { token: getToken() };
   return {
     url: `${BASE_URL}${url}`,
     options: { ...options, interceptors: true, headers: authHeader },
@@ -99,6 +99,7 @@ export const request: RequestConfig = {
     }
 
     if (!response) {
+      console.log(response);
       notification.error({
         description: '您的网络发生异常，无法连接服务器',
         message: '网络异常',
