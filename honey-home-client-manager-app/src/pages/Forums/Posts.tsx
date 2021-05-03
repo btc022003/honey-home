@@ -62,7 +62,7 @@ function Index() {
       title: '发布人',
       align: 'center',
       hideInSearch: true,
-      render: (r, d, i) => <>{d.user?.userName}</>,
+      render: (r, d) => <>{d.user?.userName}</>,
     },
     {
       title: '主图',
@@ -211,11 +211,12 @@ function Index() {
         onCancel={() => setModalVisible(false)}
         title={postDetail.name}
         width={800}
+        footer={false}
       >
         <h1>{postDetail.name}</h1>
         <div dangerouslySetInnerHTML={createRichText()}></div>
         <hr />
-        <Table rowKey="id" dataSource={comments} columns={commentColumns} />
+        <Table pagination={false} rowKey="id" dataSource={comments} columns={commentColumns} />
       </Modal>
     </PageContainer>
   );

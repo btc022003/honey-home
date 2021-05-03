@@ -62,4 +62,7 @@ export default {
   'menu.forums': '论坛管理',
   'menu.forums.forums-list': '板块管理',
   'menu.forums.forums-post': '讨论管理',
+  'menu.articles': '资讯管理',
+  'menu.articles.categories': '分类管理',
+  'menu.articles.list': '资讯管理',
 };

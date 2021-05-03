@@ -106,7 +106,6 @@
     name: 'forums',
     icon: 'DingtalkOutlined',
     path: '/forums',
-
     routes: [
       {
         path: '/forums/list',
@@ -117,6 +116,23 @@
         path: '/forums/posts',
         name: 'forums-post',
         component: './Forums/Posts',
+      },
+    ],
+  },
+  {
+    name: 'articles',
+    icon: 'FileDoneOutlined',
+    path: '/articles',
+    routes: [
+      {
+        path: '/articles/categories',
+        name: 'categories',
+        component: './Articles/ArticleCategories',
+      },
+      {
+        path: '/articles/list',
+        name: 'list',
+        component: './Articles',
       },
     ],
   },

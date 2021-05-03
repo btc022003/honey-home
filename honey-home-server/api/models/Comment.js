@@ -28,7 +28,7 @@ module.exports = {
     },
     isChecked: {
       type: "number",
-      defaultsTo: 0,
+      defaultsTo: 1,
       columnName: "is_checked",
     },
     views: {
