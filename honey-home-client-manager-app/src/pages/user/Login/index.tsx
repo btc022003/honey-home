@@ -35,11 +35,14 @@ const Login: React.FC = () => {
     }
   };
 
-  const handleSubmit = async (values: API.LoginParams) => {
+  const handleSubmit = async (values: IUser.User) => {
     setSubmitting(true);
     try {
       // 登录
-      const msg = await login({ ...values });
+      const msg = await login({
+        userName: values.userName as string,
+        password: values.password as string,
+      });
       setToken(msg.data);
       // console.log(msg)
 

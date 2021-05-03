@@ -16,8 +16,21 @@ module.exports = {
     if (req.query.per) {
       per = req.query.per * 1;
     }
+    if (req.query.user) {
+      const userIds = await User.find({
+        userName: { contains: req.query.user },
+      }).select(["id"]);
+      // console.log(userIds);
+      query.user = { in: userIds.map((item) => item.id) };
+    }
     if (req.query.name) {
       query.name = { contains: req.query.name }; // 模糊匹配
+    }
+    if (req.query.orderStatus) {
+      query.orderStatus = req.query.orderStatus;
+    }
+    if (req.query.payStatus) {
+      query.payStatus = req.query.payStatus;
     }
     const total = await Order.count(query); // 查询数量
     // 查询数据

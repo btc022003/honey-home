@@ -5,13 +5,7 @@ import type { ProColumns, ActionType } from '@ant-design/pro-table';
 import { ModalForm, ProFormText, ProFormTextArea } from '@ant-design/pro-form';
 import ProTable from '@ant-design/pro-table';
 import { useState, useRef } from 'react';
-import {
-  loadModels,
-  addModel,
-  modifyModel,
-  delModel,
-  modelDetail,
-} from '@/services/bannerCategories';
+import { loadModels, addModel, modifyModel, delModel, modelDetail } from '@/services/forums';
 import UploadImage from '@/components/UploadImage';
 import { resetImgUrl } from '@/utils/utils';
 
@@ -22,7 +16,7 @@ function Index() {
   const actionRef = useRef<ActionType>();
   const [form] = Form.useForm();
 
-  const columns: ProColumns<IBannerCategory.BannerCategory>[] = [
+  const columns: ProColumns<IForum.Forum>[] = [
     {
       title: '序号',
       align: 'center',
@@ -55,7 +49,7 @@ function Index() {
           <>
             <Button
               onClick={async () => {
-                const detail: IBannerCategory.BannerCategory = await modelDetail(d.id);
+                const detail: IForum.Forum = await modelDetail(d.id);
                 setModalVisible(true);
                 setCoverImage(detail.coverImage as string);
                 // const v = { ...detail };
@@ -92,7 +86,7 @@ function Index() {
   return (
     <PageContainer>
       <ProTable
-        headerTitle="轮播图分类"
+        headerTitle="论坛板块"
         actionRef={actionRef}
         rowKey="id"
         columns={columns}
@@ -121,7 +115,7 @@ function Index() {
         ]}
       ></ProTable>
       <ModalForm
-        title="轮播图分类编辑"
+        title="编辑"
         width="800px"
         initialValues={{
           name: 'Tom',
@@ -131,7 +125,7 @@ function Index() {
         onVisibleChange={setModalVisible}
         onFinish={async (value: { name: string }) => {
           // console.log(value);
-          const saveData: IBannerCategory.BannerCategory = { ...value };
+          const saveData: IForum.Forum = { ...value };
           if (coverImage) {
             saveData.coverImage = coverImage;
           }
@@ -156,10 +150,10 @@ function Index() {
           rules={[
             {
               required: true,
-              message: '分类名字必填',
+              message: '名字必填',
             },
           ]}
-          placeholder="请输入分类名字"
+          placeholder="请输入名字"
           width="md"
           name="name"
         />

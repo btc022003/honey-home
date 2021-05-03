@@ -49,6 +49,10 @@ module.exports = {
     user: {
       model: "User",
     },
+    comments: {
+      collection: "Comment",
+      via: "post",
+    },
   },
   tableName: "posts",
   schema: true, // 如果需要查询指定的字段，需要设置这个

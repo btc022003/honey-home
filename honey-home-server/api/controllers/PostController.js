@@ -33,6 +33,7 @@ module.exports = {
       .limit(per)
       .populate("forum")
       .populate("user")
+      .populate("comments")
       .sort("id DESC");
     // const result = await sails.helpers.page(Article, query);
     res.json({

@@ -58,4 +58,8 @@ export default {
   'menu.banners.index': '轮播图列表',
   'menu.users': '用户管理',
   'menu.users.list': '用户列表',
+  'menu.orders': '订单管理',
+  'menu.forums': '论坛管理',
+  'menu.forums.forums-list': '板块管理',
+  'menu.forums.forums-post': '讨论管理',
 };

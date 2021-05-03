@@ -54,6 +54,7 @@ export async function getInitialState(): Promise<{
 const authHeaderInterceptor = (url: string, options: RequestOptionsInit) => {
   const authHeader = { token: getToken() };
   return {
+    // @ts-ignore
     url: `${BASE_URL}${url}`,
     options: { ...options, interceptors: true, headers: authHeader },
   };
@@ -61,7 +62,7 @@ const authHeaderInterceptor = (url: string, options: RequestOptionsInit) => {
 
 /**
  * 异常处理程序
- const codeMessage = {
+const codeMessage = {
     200: '服务器成功返回请求的数据。',
     201: '新建或修改数据成功。',
     202: '一个请求已经进入后台排队（异步任务）。',
@@ -82,6 +83,7 @@ const authHeaderInterceptor = (url: string, options: RequestOptionsInit) => {
  * @see https://beta-pro.ant.design/docs/request-cn
  */
 export const request: RequestConfig = {
+  // @ts-ignore
   requestInterceptors: [authHeaderInterceptor],
   errorHandler: (error: ResponseError) => {
     const { messages } = getIntl(getLocale());
@@ -99,7 +101,6 @@ export const request: RequestConfig = {
     }
 
     if (!response) {
-      console.log(response);
       notification.error({
         description: '您的网络发生异常，无法连接服务器',
         message: '网络异常',

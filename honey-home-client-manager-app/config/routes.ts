@@ -96,6 +96,31 @@
     ],
   },
   {
+    name: 'orders',
+    icon: 'ShopOutlined',
+    path: '/orders/list',
+    component: './Orders',
+  },
+  // <DingtalkOutlined />
+  {
+    name: 'forums',
+    icon: 'DingtalkOutlined',
+    path: '/forums',
+
+    routes: [
+      {
+        path: '/forums/list',
+        name: 'forums-list',
+        component: './Forums/ForumList',
+      },
+      {
+        path: '/forums/posts',
+        name: 'forums-post',
+        component: './Forums/Posts',
+      },
+    ],
+  },
+  {
     path: '/',
     redirect: '/welcome',
   },
