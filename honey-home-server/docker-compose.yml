@@ -1,0 +1,14 @@
+version: '2'
+services:
+  web:
+    build: .
+    ports:
+      - '10086:1337'
+    volumes:
+      - .:/code
+    command:
+      - /bin/bash
+      - -c
+      - |
+        npm i
+        npm start
