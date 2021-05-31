@@ -49,6 +49,7 @@ export function resetImgUrl(url: string) {
     if (url.startsWith('http')) {
       return url;
     }
+    // @ts-ignore
     return `${BASE_URL}${url}`;
   }
   return 'http://oss.penkuoer.com/uPic/ss.jpeg';
