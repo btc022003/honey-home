@@ -222,10 +222,14 @@ function Index() {
         onVisibleChange={setModalVisible}
         onFinish={async (value: { name: string }) => {
           // console.log(value);
-          const saveData: IProduct.Product = { ...value, content: editorState.toHTML() };
+          const saveData: IProduct.Product = {
+            ...value,
+            content: editorState.toHTML ? editorState.toHTML() : '',
+          };
           if (coverImage) {
             saveData.coverImage = coverImage;
           }
+
           if (currentId > 0) {
             // 修改
             await modifyProduct(currentId, saveData);
