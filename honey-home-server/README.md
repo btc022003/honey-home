@@ -19,7 +19,7 @@ admin/admin
 ##### pm2 启动
 
 ```bash
-pm2 start app.js --name home-honey -x -- --prod
+pm2 start # 已经添加了PM2配置文件，可以直接启动
 ```
 
 ##### nginx 配置
