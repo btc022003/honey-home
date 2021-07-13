@@ -6,3 +6,4 @@
 honey-home-server             服务器端代码sails实现
 honey-home-client-manager-app 管理后台代码react
 ```
+
