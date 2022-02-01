@@ -32,4 +32,5 @@ module.exports = {
       model: "User",
     },
   },
+  tableName: "activity_logs",
 };

@@ -36,4 +36,5 @@ module.exports = {
       defaultsTo: 0,
     },
   },
+  tableName: "activity_categories",
 };
