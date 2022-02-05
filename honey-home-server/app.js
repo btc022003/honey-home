@@ -95,34 +95,26 @@ const categories = [
   {
     id: 1,
     name: "雕塑手办",
-    link:
-      "https://apps.game.qq.com/daoju/v3/zb/client/goods/GoodsApp.php?output_format=json&biz=lolriotmall&page_no=1&page_size=50&order_by=iRecRank&sort=desc&jsonpName=goodsListApi&opt_type=goods_list&cat_tag_id=101&cat_tag_type=cat&channel=2",
-    img:
-      "https://game.gtimg.cn/images/zb/x5/uploadImg/goods/201712/20171205200207_77656.big.jpg",
+    link: "https://apps.game.qq.com/daoju/v3/zb/client/goods/GoodsApp.php?output_format=json&biz=lolriotmall&page_no=1&page_size=50&order_by=iRecRank&sort=desc&jsonpName=goodsListApi&opt_type=goods_list&cat_tag_id=101&cat_tag_type=cat&channel=2",
+    img: "https://game.gtimg.cn/images/zb/x5/uploadImg/goods/201712/20171205200207_77656.big.jpg",
   },
   {
     id: 2,
     name: "毛绒玩偶",
-    link:
-      "https://apps.game.qq.com/daoju/v3/zb/client/goods/GoodsApp.php?output_format=json&biz=lolriotmall&page_no=1&page_size=199&order_by=iRecRank&sort=desc&jsonpName=goodsListApi&opt_type=goods_list&cat_tag_id=119&cat_tag_type=cat&channel=2",
-    img:
-      "https://game.gtimg.cn/images/zb/x5/uploadImg/goods/202101/20210120214843_39472.big.jpg",
+    link: "https://apps.game.qq.com/daoju/v3/zb/client/goods/GoodsApp.php?output_format=json&biz=lolriotmall&page_no=1&page_size=199&order_by=iRecRank&sort=desc&jsonpName=goodsListApi&opt_type=goods_list&cat_tag_id=119&cat_tag_type=cat&channel=2",
+    img: "https://game.gtimg.cn/images/zb/x5/uploadImg/goods/202101/20210120214843_39472.big.jpg",
   },
   {
     id: 3,
     name: "男女服饰",
-    link:
-      "https://apps.game.qq.com/daoju/v3/zb/client/goods/GoodsApp.php?output_format=json&biz=lolriotmall&page_no=1&page_size=199&order_by=iRecRank&sort=desc&jsonpName=goodsListApi&opt_type=goods_list&cat_tag_id=120&cat_tag_type=cat&channel=2",
-    img:
-      "https://game.gtimg.cn/images/zb/x5/uploadImg/goods/202104/20210409175934_45107.big.jpg",
+    link: "https://apps.game.qq.com/daoju/v3/zb/client/goods/GoodsApp.php?output_format=json&biz=lolriotmall&page_no=1&page_size=199&order_by=iRecRank&sort=desc&jsonpName=goodsListApi&opt_type=goods_list&cat_tag_id=120&cat_tag_type=cat&channel=2",
+    img: "https://game.gtimg.cn/images/zb/x5/uploadImg/goods/202104/20210409175934_45107.big.jpg",
   },
   {
     id: 4,
     name: "生活周边",
-    link:
-      "https://apps.game.qq.com/daoju/v3/zb/client/goods/GoodsApp.php?output_format=json&biz=lolriotmall&page_no=1&page_size=199&order_by=iRecRank&sort=desc&jsonpName=goodsListApi&opt_type=goods_list&cat_tag_id=665&cat_tag_type=cat&channel=2",
-    img:
-      "https://game.gtimg.cn/images/zb/x5/uploadImg/goods/202101/20210118181726_94604.big.jpg",
+    link: "https://apps.game.qq.com/daoju/v3/zb/client/goods/GoodsApp.php?output_format=json&biz=lolriotmall&page_no=1&page_size=199&order_by=iRecRank&sort=desc&jsonpName=goodsListApi&opt_type=goods_list&cat_tag_id=665&cat_tag_type=cat&channel=2",
+    img: "https://game.gtimg.cn/images/zb/x5/uploadImg/goods/202101/20210118181726_94604.big.jpg",
   },
 ];
 
