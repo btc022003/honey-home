@@ -37,4 +37,5 @@ module.exports = {
     },
   },
   tableName: "activity_categories",
+  schema: true,
 };

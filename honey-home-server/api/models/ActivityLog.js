@@ -33,4 +33,5 @@ module.exports = {
     },
   },
   tableName: "activity_logs",
+  schema: true, //
 };
