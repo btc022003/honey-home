@@ -32,25 +32,36 @@ module.exports = {
   },
 
   async reg(req, res) {
-    //
-    const user = await User.create({
-      // console.log()
+    const validateUser = await User.findOne({
       userName: req.body.userName,
-      password: req.body.password,
-      nickName: req.body.nickName,
-      gender: req.body.gender,
-      avatar: req.body.avatar,
-      age: req.body.age,
-      area: req.body.area,
-      address: req.body.address,
-      birthday: req.body.birthday,
-    }).fetch(); // 创建完成之后返回当前值
-    console.log(user);
-    if (user) {
+    }).decrypt();
+    // console.log(validateUser);
+    if (validateUser) {
       res.json({
-        code: 1,
-        data: await sails.helpers.token(user),
+        code: 0,
+        data: "用户信息已存在",
       });
+    } else {
+      //
+      const user = await User.create({
+        // console.log()
+        userName: req.body.userName,
+        password: req.body.password,
+        nickName: req.body.nickName,
+        gender: req.body.gender,
+        avatar: req.body.avatar,
+        age: req.body.age,
+        area: req.body.area,
+        address: req.body.address,
+        birthday: req.body.birthday,
+      }).fetch(); // 创建完成之后返回当前值
+      // console.log(user);
+      if (user) {
+        res.json({
+          code: 1,
+          data: await sails.helpers.token(user),
+        });
+      }
     }
   },
 
