@@ -37,6 +37,7 @@ module.exports = {
     content: {
       type: "string",
       defaultsTo: "",
+      columnType: "text",
     },
   },
   tableName: "activities",

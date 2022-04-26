@@ -32,6 +32,7 @@ module.exports = {
     content: {
       type: "string",
       defaultsTo: "",
+      columnType: "text",
     },
     views: {
       type: "number",
