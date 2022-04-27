@@ -69,6 +69,7 @@ module.exports = {
     const user = await Manager.findOne({
       userName: req.body.userName,
     }).decrypt();
+    // console.log(user);
     if (user) {
       if (user.password === req.body.password) {
         res.json({

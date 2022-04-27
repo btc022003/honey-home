@@ -1,26 +1,30 @@
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 module.exports = {
-  friendlyName: 'Token',
+  friendlyName: "Token",
 
-  description: 'Token something.',
+  description: "Token something.",
 
   inputs: {
     user: {
-      type: 'ref',
+      type: "ref",
     },
   },
 
   exits: {
     success: {
-      description: 'All done.',
+      description: "All done.",
     },
   },
 
   fn: async function ({ user }) {
     // TODO
-    return jwt.sign(user, sails.config.custom.jwtSecret, {
-      expiresIn: '10h',
-    });
+    return jwt.sign(
+      JSON.parse(JSON.stringify(user)),
+      sails.config.custom.jwtSecret,
+      {
+        expiresIn: "10h",
+      }
+    );
   },
 };
