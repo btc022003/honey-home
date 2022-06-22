@@ -14,6 +14,15 @@ export default defineConfig({
   dva: {
     hmr: true,
   },
+  // 多语言包的配置方式变了。。。
+  // 卡了半天的问题。。。
+  locale: {
+    default: 'zh-CN',
+    antd: true,
+    title: false,
+    baseNavigator: true,
+    baseSeparator: '-',
+  },
   layout: {
     // https://umijs.org/zh-CN/plugins/plugin-layout
     locale: true,

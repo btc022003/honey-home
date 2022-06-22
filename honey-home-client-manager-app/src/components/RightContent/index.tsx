@@ -15,6 +15,8 @@ const ENVTagColor = {
 };
 
 const GlobalHeaderRight: React.FC = () => {
+
+  return <></>
   const { initialState } = useModel('@@initialState');
 
   if (!initialState || !initialState.settings) {
