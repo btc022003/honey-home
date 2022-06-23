@@ -1,4 +1,4 @@
-import { Button, Popconfirm, Form, message } from 'antd';
+import { Button, Popconfirm, Form, message, Modal, Table, Space } from 'antd';
 import { PageContainer } from '@ant-design/pro-layout';
 import { PlusOutlined } from '@ant-design/icons';
 import type { ProColumns, ActionType } from '@ant-design/pro-table';
@@ -16,6 +16,7 @@ import type { EditorState } from 'braft-editor';
 import RichTextEditor from '@/components/RichTextEditor';
 import { loadModels, addModel, modifyModel, delModel, modelDetail } from '@/services/activities';
 import { allCategories } from '@/services/activity-categories';
+import { loadAllLogs } from '@/services/acvity-logs';
 import UploadImage from '@/components/UploadImage';
 import { resetImgUrl } from '@/utils/utils';
 
@@ -23,6 +24,10 @@ function Activities() {
   const [createModalVisible, setModalVisible] = useState<boolean>(false);
   const [coverImage, setCoverImage] = useState<string>('');
   const [currentId, setCurrentId] = useState<number>(0);
+
+  const [isShowLog, setIsShowLog] = useState<boolean>(false);
+  const [activityLog, setActivityLogs] = useState<IActivityLog.ActivityLog[]>([]);
+
   const actionRef = useRef<ActionType>();
   const [form] = Form.useForm();
   const [categories, setCategories] = useState<ProSchemaValueEnumObj>({});
@@ -89,7 +94,7 @@ function Activities() {
       hideInSearch: true,
       render(r, d) {
         return (
-          <>
+          <Space>
             <Button
               onClick={async () => {
                 const detail: IActivity.Activity = await modelDetail(d.id);
@@ -124,7 +129,18 @@ function Activities() {
                 删除
               </Button>
             </Popconfirm>
-          </>
+            <Button
+              type="ghost"
+              size="small"
+              onClick={async () => {
+                const res = await loadAllLogs(d.id as number);
+                setActivityLogs(res.data as IActivityLog.ActivityLog[]);
+                setIsShowLog(true);
+              }}
+            >
+              查看记录
+            </Button>
+          </Space>
         );
       },
     },
@@ -217,6 +233,48 @@ function Activities() {
           <RichTextEditor editorState={editorState} setEditorState={setEditorState} />
         </ProForm.Item>
       </ModalForm>
+
+      {/* 活动报名记录 */}
+      <Modal
+        title="报名记录"
+        width="800px"
+        visible={isShowLog}
+        footer={null}
+        onCancel={() => setIsShowLog(false)}
+      >
+        <Table
+          dataSource={activityLog}
+          pagination={false}
+          columns={[
+            {
+              title: '序号',
+              render(c, r, i) {
+                return i + 1;
+              },
+            },
+            {
+              title: '用户',
+              render(c, r) {
+                return r.user?.userName;
+              },
+            },
+            {
+              title: '昵称',
+              render(c, r) {
+                return r.user?.nickName;
+              },
+            },
+            {
+              title: '名字',
+              dataIndex: 'name',
+            },
+            {
+              title: '备注',
+              dataIndex: 'remarks',
+            },
+          ]}
+        />
+      </Modal>
     </PageContainer>
   );
 }
