@@ -65,4 +65,7 @@ export default {
   'menu.articles': '资讯管理',
   'menu.articles.categories': '分类管理',
   'menu.articles.list': '资讯管理',
+  'menu.activities': '线下活动',
+  'menu.activities.activityCategories': '活动分类',
+  'menu.activities.activityList': '活动管理',
 };

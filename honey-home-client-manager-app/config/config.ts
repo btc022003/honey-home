@@ -14,15 +14,6 @@ export default defineConfig({
   dva: {
     hmr: true,
   },
-  // 多语言包的配置方式变了。。。
-  // 卡了半天的问题。。。
-  locale: {
-    default: 'zh-CN',
-    antd: true,
-    title: false,
-    baseNavigator: true,
-    baseSeparator: '-',
-  },
   layout: {
     // https://umijs.org/zh-CN/plugins/plugin-layout
     locale: true,
@@ -30,13 +21,15 @@ export default defineConfig({
     ...defaultSettings,
   },
   // https://umijs.org/zh-CN/plugins/plugin-locale
-  // locale: {
-  //   // default zh-CN
-  //   default: 'zh-CN',
-  //   antd: true,
-  //   // default true, when it is true, will use `navigator.language` overwrite default
-  //   // baseNavigator: true,
-  // },
+  // 多语言包的配置方式变了。。。
+  // 卡了半天的问题。。。
+  locale: {
+    // default zh-CN
+    default: 'zh-CN',
+    antd: true,
+    // default true, when it is true, will use `navigator.language` overwrite default
+    // baseNavigator: true,
+  },
   dynamicImport: {
     loading: '@ant-design/pro-layout/es/PageLoading',
   },
