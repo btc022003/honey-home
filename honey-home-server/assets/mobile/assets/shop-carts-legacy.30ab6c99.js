@@ -1,0 +1,1 @@
+System.register(["./request-legacy.93ec3bd7.js"],(function(t,e){"use strict";var s,r,a;return{setters:[t=>{s=t.g,r=t.p,a=t.a}],execute:function(){t("a",((t,e=1,s=0)=>r("/api/v1/shop_carts",{product:t,amount:e,price:s}))),t("l",(()=>s("/api/v1/shop_carts"))),t("d",(t=>a("/api/v1/shop_carts/"+t)))}}}));

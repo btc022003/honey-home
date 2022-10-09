@@ -1,0 +1,1 @@
+System.register(["./request-legacy.93ec3bd7.js"],(function(e,t){"use strict";var r;return{setters:[e=>{r=e.g}],execute:function(){e("a",(()=>r("/api/v1/product_categories"))),e("l",((e=1,t="")=>r("/api/v1/products",{page:e,category:t}))),e("b",(e=>r("/api/v1/products/"+e)))}}}));
