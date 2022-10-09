@@ -137,6 +137,23 @@
     ],
   },
   {
+    name: 'activities',
+    icon: 'FileDoneOutlined',
+    path: '/activities',
+    routes: [
+      {
+        path: '/activities/categories',
+        name: 'activityCategories',
+        component: './activities/activity-categories',
+      },
+      {
+        path: '/activities/list',
+        name: 'activityList',
+        component: './activities',
+      },
+    ],
+  },
+  {
     path: '/',
     redirect: '/welcome',
   },

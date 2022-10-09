@@ -20,9 +20,9 @@ const goto = () => {
 };
 
 const Login: React.FC = () => {
+  // return <>2222</>;
   const [submitting, setSubmitting] = useState(false);
   const { initialState, setInitialState } = useModel('@@initialState');
-
   const intl = useIntl();
 
   const fetchUserInfo = async () => {

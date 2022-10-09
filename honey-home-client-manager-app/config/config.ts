@@ -21,6 +21,8 @@ export default defineConfig({
     ...defaultSettings,
   },
   // https://umijs.org/zh-CN/plugins/plugin-locale
+  // 多语言包的配置方式变了。。。
+  // 卡了半天的问题。。。
   locale: {
     // default zh-CN
     default: 'zh-CN',

@@ -4,7 +4,7 @@ declare module IArticleCategory {
     updatedAt?: any;
     id?: number;
     name?: string;
-    image?: string;
+    coverImage?: string;
     desc?: string;
     parent?: number;
   }
