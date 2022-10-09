@@ -1,0 +1,1 @@
+System.register(["./request-legacy.4f5c48b3.js"],(function(e,t){"use strict";var r,s;return{setters:[e=>{r=e.g,s=e.p}],execute:function(){e("l",(e=>s("/api/v1/auth/login",e))),e("a",(()=>r("/api/v1/user/info")))}}}));
