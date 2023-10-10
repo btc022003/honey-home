@@ -20,7 +20,7 @@ module.exports = {
       query.pay_status = req.query.pay_status;
     }
     if (req.query.order_status) {
-      query.order_status = req.query.category;
+      query.order_status = req.query.order_status;
     }
     const total = await Order.count(query); // 查询数量
     // 查询数据
